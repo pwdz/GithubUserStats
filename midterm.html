@@ -1,0 +1,53 @@
+<!-- CSS  naming convention: BEM -->
+<!-- JS naming convention: lowrCamelCase -->
+<!-- HTML naming convention: kebab-case -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MidTerm Proj - Mohammad Ebrahim Adibzadeh 9731002</title>
+    <!-- Mayer web css reset applied -->
+    <link rel="stylesheet" href="assets/style/reset.css">
+
+    <!-- Core styles applied -->
+    <link rel="stylesheet" href="assets/style/style.css">
+
+</head>
+<body>
+    <!-- error wrapper for api dynamic errors -->
+    <div class="error" id="error"></div>
+    
+    <!-- Middle container -->
+    <section class="container"> 
+        <div class="info-box" >
+            <div class="info-header">
+                <img src="assets/img/bg1.jpg" id="prof-img">
+                <div class="prof-info">
+                    <p class="text">
+                        <span class="bold">first name</br></span>
+                        <span>emailaddr@host.xyz</br></span>
+                        <span>google.com</br></span>
+                        <span>city, country</span>
+                    </p>
+                </div>               
+            </div>
+            
+            <div class="info-footer text">
+                <h6>Bio</h6>
+                <span>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</span>
+                <h6>&lt/&gt</h6>
+                <p align="center">go</p>
+            </div>
+        </div>
+
+        <div class="input-box">
+                <label class="bold">Enter username</label>
+                <input type="text" name="name" id="name"/>
+                <input type="submit" name="submit" id="submit-btn"/>
+        </div>
+    </section> 
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
