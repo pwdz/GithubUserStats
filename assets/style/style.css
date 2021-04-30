@@ -21,7 +21,6 @@ body {
     justify-content: center;
 }
 div.info-box, div.input-box{ 
-    /* border: 2px solid #e1c1a454; */
     margin: 5px;
     padding: 10px;
 }
@@ -53,6 +52,8 @@ div{
     height: 50%;
     width: 100%;
 
+    background-color: rgba(128, 128, 128, 0.288);
+    border-radius: 15px;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -73,10 +74,6 @@ div{
 
     line-height: 1.4em;
     display: flex;
-    /* display: block; */
-    /* text-align: center; */
-    /* vertical-align:bottom; */
-    /* grid-auto-columns: 100px; */
     align-items: center;
     justify-content: center;
 }
@@ -117,19 +114,12 @@ h6{
     margin: 10px;
 }
 
-
-/* 
-.list__title {
-    color: white;
-    font-weight: bold;
-    font-size: 24px;
+#username {
+    border-radius: 5px;
+    width: 40%;
 }
-
-/**
-    List items layout is dynamic column flex box.(Just like default implementation but with MUCH more scalability)
-**/
-
 #submit-btn {
+    width: 25%;
     border-radius: 5px;
     border: none;
     padding: 5px 10px;
@@ -145,7 +135,6 @@ h6{
 
 #submit-btn:hover {
     background-color: #e1c1a4;
-    /* color: white; */
 }
 
 #submit-btn:active {
@@ -155,15 +144,6 @@ h6{
 #submit-btn--disabled {
    display: none;
 }
-
-/* .pagination__current {
-    margin-left: 10px;
-    color: white;
-} */
-
-/** This is error wrapper. 
-    All error messages will shown on the bottom of the page with a fixed position. centring its inside contents( Texts mainly )
-**/
 .error {
     position: fixed;
     width: 0;
@@ -183,23 +163,11 @@ h6{
     transition: width 3s linear;
 }
 
-
-/**
-Media query for mobile phones and smaller tablets.
-Container will fill the entire page with a single column layout.
-
-Pagination will center horizontally
-**/
-/*
-@media only screen and (max-width: 767.8px) {
+@media only screen and (max-aspect-ratio: 16/11) {
     .container {
-        width: 100%;
-        height: 100vh;
-        
-        grid-template-columns: 1fr;
+        flex-direction:column-reverse;
     }
-
-    .pagination {
-        justify-content: center;
+    .info-box, .input-box{
+        width: 80%;
     }
-}  */
+}
