@@ -1,6 +1,4 @@
 /*
-    JS Code: Seyed Mohammad Hadi Tabatabaei
-
     Desc:
     Entire script wrapped in an IIFE to exclude/capsulate variables and functions from outside invasion!.
     Code scripts are pretty self explanatory and http requests send via fetch api.
@@ -15,7 +13,8 @@
     let cachedFilms = []
 
     let submitBtn = document.getElementById("submit-btn")
-    submitBtn.onclick = submit("username")
+    let usernameTxtArea = document.getElementById("username");
+    submitBtn.onclick = submit()
     
     let errorWrapper = document.getElementById('error')
     let profileImage = document.getElementById('prof-img') 
@@ -25,17 +24,6 @@
     let bio = document.getElementById('bio')
     let progLang = document.getElementById('prog-lang')
 
-    /* Generate uncached film urls to fetch */
-    function generateUncachedFilmUrls(filmUrlsToCheck) {
-        const uncached = []
-        for(const url of filmUrlsToCheck) {
-            if(!cachedFilms.find(cfilm => cfilm.url === url)) {
-                uncached.push(url)
-            }
-        }
-        return uncached
-    }
-    
     /* Fetch star ships */
     async function fetchData(url) {
         try {
@@ -61,7 +49,10 @@
             errorWrapper.textContent = ''
         }, 6000)
     }
-    function setTopLanguage(repos){
+    function setTopLanguage(langName){
+        progLang.innerText = langName
+    }
+    function findTopLanguage(repos){
         let arr = new Array()
         let maxLang = "", maxCount = 0
         for(let i = 0; i < 5 && i<repos.length; i++){
@@ -77,9 +68,9 @@
             }
         }  
 
-        progLang.innerText = maxLang
+        setTopLanguage(maxLang)
     }
-    function findTopLanguage(reposURL){
+    function sortRepos(reposURL){
         reposData = fetchData(reposURL)
         
         reposData.then((val)=>{
@@ -87,7 +78,8 @@
                 return a.pushed_at < b.pushed_at
             })
             let repos = val
-            setTopLanguage(repos)
+            findTopLanguage(repos)
+            return
         })
     }
 
@@ -98,22 +90,33 @@
         location.innerText = userData["location"]
         bio.innerText = userData["bio"]
         
-        reposUrl = userData["repos_url"]
-        findTopLanguage(reposUrl)
-
+        if(userData["max_lang"] == null){
+            reposUrl = userData["repos_url"]
+            sortRepos(reposUrl)
+        }
+        else
+            setTopLanguage(userData["max_lang"])
     }
-    function submit(textareaID) {
+    function cacheInfo(username, userData){
+        window.localStorage.setItem(username, userData)
+    }
+    function submit() {
         return () => {
-            let usernameTxtArea = document.getElementById(textareaID);
             let username = usernameTxtArea.value;
-            let userData = fetchData(userBaseURL + username)
+            
+            if(window.localStorage.getItem(username) == null){
+                let userData = fetchData(userBaseURL + username)
 
-
-            userData.then((val)=>{
-                updateInfo(val) 
-                return
-            })
-
+                userData.then((data)=>{
+                    updateInfo(data) 
+                    data["max_lang"] = progLang.innerText
+                    cacheInfo(username, JSON.stringify(data))
+                    return
+                })
+            }else{
+                let userData = window.localStorage.getItem(username)
+                updateInfo(JSON.parse(userData))
+            }
         };
     }
 })()
