@@ -1,3 +1,6 @@
+/* 
+    Set background image& font& display layout& height for html body.
+*/
 body {
     background: url("../img/bg3.png") no-repeat center / cover;
     min-height: 100vh;
@@ -7,6 +10,12 @@ body {
     font-family: 'Tahoma';
 }
 
+/* 
+    container is the transparent background that contains information and input boxes.
+    it's the parent of our main elements.
+    we set its size based on viewport size for having a reponsive page.
+    also we set back the display layout to flex.     
+*/
 .container {
     max-width: 1400px;
     height: 70vh;
@@ -20,17 +29,33 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* 
+    info box contains user information.
+    input box contains the input field and fetch button.
+    set margin and padding for these elements.
+*/
 div.info-box, div.input-box{ 
     margin: 5px;
     padding: 10px;
 }
+/* 
+    set text settings for divs.
+*/
 div{
     overflow: hidden;
     font-size: medium;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: Arial, sans-serif;
     font-weight: normal;
     color: white;
 }
+
+/* 
+    info box contains user information. we set its size based on its parent which is
+    the container mentioned above.
+    also we set its color and text settings and display layout.
+    here we use "flex-direction: column" in order to use two different divs in one column.
+*/
 .info-box {
     width: 45%;
     height: 70%;
@@ -48,6 +73,12 @@ div{
     align-items: center;
     justify-content: center;
 }
+/* 
+    info header is the upper div inside info box.
+    it contains user image and fullname and blog and location.
+    we set its size based on the info box size.
+    also we set some text and display settings here.
+*/
 .info-header{
     height: 50%;
     width: 100%;
@@ -58,13 +89,20 @@ div{
     align-items: center;
     justify-content: center;
 }
-
+/* 
+    we set the size of the user image based on the height of the info header.
+    also we set border-radius to 50% for having a circular image.
+*/
 #prof-img{
-    height: 13vh;
-    width: 13vh; 
+    height: 55%;
+    width: auto; 
     border-radius: 50%;
 }
 
+/* 
+    prof info is a child of the info header.
+    we set its size based on its parent. also we set some text and display settings here.
+*/
 .prof-info{
     height: 90%;
     width: 50%;
@@ -77,26 +115,46 @@ div{
     align-items: center;
     justify-content: center;
 }
+/* 
+    for having a bold text.
+*/
 .bold{
     font-weight: bold;
 }
+
+/* 
+    set h6 font size and text align and distance between lines.
+*/
 h6{
     font-weight:900;
     text-align: center;
     line-height: 3em;
 }
+
+/* 
+    info footer contains Bio and top programming language of the user.
+    it's a child of the info box.
+    we set it's size based on its parent.
+*/
 .info-footer{
     height: 50%;
     width: 100%;
 
     padding: 5px;
 }
+/* 
+    automatic line breaks and overflow settings for text. 
+*/
 .text{
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
-
+/* 
+    input box contains input field and fetch button. 
+    we set its size based on its parent which is the container mentioned above.
+    also we set its color and some display settings here.
+*/
 .input-box {
     width: 40%;
     height: 50%;
@@ -110,14 +168,22 @@ h6{
     align-items: center;
     justify-content: center;
 }
+/* 
+    set margin for input box children
+*/
 .input-box *{
     margin: 10px;
 }
-
+/* 
+    display settings for text field inside input box.
+*/
 #username {
     border-radius: 5px;
     width: 40%;
 }
+/* 
+    submit button color and animation and font and size settings.
+*/
 #submit-btn {
     width: 25%;
     border-radius: 5px;
@@ -128,22 +194,21 @@ h6{
     outline: none;
     font-weight: bold;
 }
-
-#submit-btn:not(:first-child) {
-    margin-left: 10px;
-}
-
+/* 
+    change button color when mouse goes on it.
+*/
 #submit-btn:hover {
     background-color: #e1c1a4;
 }
-
+/* 
+    change button color when mouse is clicked on it.
+*/
 #submit-btn:active {
     background-color: #955f26; 
 }
-
-#submit-btn--disabled {
-   display: none;
-}
+/* 
+    error div settings for the bottom of the page.
+*/
 .error {
     position: fixed;
     width: 0;
@@ -152,7 +217,7 @@ h6{
     align-items: center;
     justify-content: center;
     
-    height: 50px;
+    height: 10vh;
     color: white;
     background-color: rgb(231, 67, 67);
 
@@ -160,14 +225,21 @@ h6{
 
     left: 0;
     bottom: 0;
-    transition: width 3s linear;
+    transition: width 2s ease-in-out;
 }
-
+/* 
+    change some display settings for devices like mobilephones.
+    change the "flex-direction" of the container to "column-reverse" 
+    so that info box and input box place vertically in the screen.
+*/
 @media only screen and (max-aspect-ratio: 16/11) {
     .container {
         flex-direction:column-reverse;
     }
     .info-box, .input-box{
-        width: 80%;
+        width: 88%;
+    }
+    .info-footer{
+        overflow-y:scroll;
     }
 }

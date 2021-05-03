@@ -36,6 +36,7 @@
             return response.json()
         } catch(e) {
             console.log(e)
+            showError("network error")
         }
     }
 
@@ -47,8 +48,8 @@
             console.log('timeout finished')
             errorWrapper.style.width = '0'
             errorWrapper.textContent = ''
-        }, 6000)
-    }
+        }, 4000)
+    }   
     function setTopLanguage(langName){
         progLang.innerText = langName
     }
@@ -73,13 +74,12 @@
     function sortRepos(reposURL){
         reposData = fetchData(reposURL)
         
-        reposData.then((val)=>{
+        return reposData.then((val)=>{
             val.sort((a, b)=>{
                 return a.pushed_at < b.pushed_at
             })
             let repos = val
             findTopLanguage(repos)
-            return
         })
     }
 
@@ -90,14 +90,15 @@
         location.innerText = userData["location"]
         bio.innerText = userData["bio"]
         
-        if(userData["max_lang"] == null){
+        if(userData["max_lang"] == undefined){
             reposUrl = userData["repos_url"]
-            sortRepos(reposUrl)
+            return sortRepos(reposUrl)
         }
         else
             setTopLanguage(userData["max_lang"])
     }
     function cacheInfo(username, userData){
+        console.log("saving:"+userData)
         window.localStorage.setItem(username, userData)
     }
     function submit() {
@@ -106,15 +107,20 @@
             
             if(window.localStorage.getItem(username) == null){
                 let userData = fetchData(userBaseURL + username)
-
+                
                 userData.then((data)=>{
-                    updateInfo(data) 
-                    data["max_lang"] = progLang.innerText
-                    cacheInfo(username, JSON.stringify(data))
+                    if(data != undefined){
+                        topLang = updateInfo(data) 
+                        topLang.then(()=>{
+                            data["max_lang"] = progLang.innerText
+                            cacheInfo(username, JSON.stringify(data))
+                        })
+                    }
                     return
                 })
             }else{
                 let userData = window.localStorage.getItem(username)
+                console.log("read data:"+userData)
                 updateInfo(JSON.parse(userData))
             }
         };
