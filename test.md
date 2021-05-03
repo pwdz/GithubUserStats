@@ -1,10 +1,10 @@
 
 <html lang="en">
 <body>
-    <!-- error wrapper for api dynamic errors -->
+
     <div class="error" id="error"></div>
     
-    <!-- Middle container -->
+
     <section class="container"> 
         <div class="info-box" >
             <div class="info-header">
