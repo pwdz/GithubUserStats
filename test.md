@@ -1,14 +1,5 @@
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MidTerm Proj - Mohammad Ebrahim Adibzadeh 9731002</title>
-    
-    <link rel="stylesheet" href="assets/style/reset.css">
-    <link rel="stylesheet" href="assets/style/style.css">
-
-</head>
 <body>
     <!-- error wrapper for api dynamic errors -->
     <div class="error" id="error"></div>
