@@ -1,21 +1,13 @@
 /*
-    Desc:
     Entire script wrapped in an IIFE to exclude/capsulate variables and functions from outside invasion!.
-    Code scripts are pretty self explanatory and http requests send via fetch api.
-
-    Small caching system implemented for saving older films to reduce number of requests and performance improvements.
-    This system wont re-fetch a film if it was previously fetched and cached, instead it will use the already cached one.
 */
 (function iife(){
+    // github user api
     const userBaseURL = "https://api.github.com/users/"
 
-    let starships = []
-    let cachedFilms = []
-
+    // cache all the needed html elements here
     let submitBtn = document.getElementById("submit-btn")
     let usernameTxtArea = document.getElementById("username");
-    submitBtn.onclick = submit()
-    
     let errorWrapper = document.getElementById('error')
     let profileImage = document.getElementById('prof-img') 
     let fullname = document.getElementById('fullname') 
@@ -23,8 +15,14 @@
     let location = document.getElementById('location') 
     let bio = document.getElementById('bio')
     let progLang = document.getElementById('prog-lang')
+    
+    // set the submit button onclick here.
+    submitBtn.onclick = submit()
 
-    /* Fetch star ships */
+    /* 
+        http requests send via fetch api.
+        showError function is called here(for network problems and codes above 400)
+    */
     async function fetchData(url) {
         try {
             let response = await fetch(url)
@@ -39,7 +37,11 @@
             showError("network error")
         }
     }
-
+ 
+    /*
+        show the text as error message in the error div.
+        set timeout for hiding error message after 4 seconds from screen.
+    */
     function showError(text) {
         errorWrapper.style.width = '100%'
         errorWrapper.textContent = text
@@ -50,9 +52,13 @@
             errorWrapper.textContent = ''
         }, 4000)
     }   
+
+    // change the "programming language" text in html
     function setTopLanguage(langName){
         progLang.innerText = langName
     }
+
+    // find user's top language among latest 5 repos 
     function findTopLanguage(repos){
         let arr = new Array()
         let maxLang = "", maxCount = 0
@@ -71,6 +77,8 @@
 
         setTopLanguage(maxLang)
     }
+
+    // sort user repos based on their "pushed_at" field in json.
     function sortRepos(reposURL){
         reposData = fetchData(reposURL)
         
@@ -83,6 +91,7 @@
         })
     }
 
+    // update user information fields in html from js.
     function updateInfo(userData){
         profileImage.src = userData["avatar_url"]
         blogAddr.innerText = userData["blog"]
@@ -97,10 +106,19 @@
         else
             setTopLanguage(userData["max_lang"])
     }
+
+    // save user information in localstorage
     function cacheInfo(username, userData){
         console.log("saving:"+userData)
         window.localStorage.setItem(username, userData)
     }
+
+    /*
+        submit button onclick callback.
+        it checks the localstorage and if user info's aren't present, then 
+        it uses fetchData function for gathering user info.
+        the it'll update user infos and cache info automatically.
+    */
     function submit() {
         return () => {
             let username = usernameTxtArea.value;

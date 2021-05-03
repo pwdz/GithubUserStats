@@ -94,7 +94,7 @@ div{
     also we set border-radius to 50% for having a circular image.
 */
 #prof-img{
-    height: 55%;
+    height: 50%;
     width: auto; 
     border-radius: 50%;
 }
@@ -232,7 +232,7 @@ h6{
     change the "flex-direction" of the container to "column-reverse" 
     so that info box and input box place vertically in the screen.
 */
-@media only screen and (max-aspect-ratio: 16/11) {
+@media only screen and (max-aspect-ratio: 16/13) {
     .container {
         flex-direction:column-reverse;
     }
