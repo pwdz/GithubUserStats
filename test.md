@@ -20,7 +20,7 @@
             </div>               
         </div>
 
-        <div class="info-footer text">
+<div class="info-footer text">
             <h6>Bio</h6>
             <span id="bio"></span>
             <h6>&lt/&gt</h6>
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="input-box">
+<div class="input-box">
             <label class="bold">Enter username</label>
             <input type="text" name="username" id="username"/>
             <button type="button" id="submit-btn">fetch</button> 
